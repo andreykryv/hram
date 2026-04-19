@@ -1,0 +1,6 @@
+export { HeroSection } from './hero-section'
+export { AnnouncementsSection } from './announcements-section'
+export { AboutSection } from './about-section'
+export { ScheduleSection } from './schedule-section'
+export { SacramentsSection } from './sacraments-section'
+export { ContactSection } from './contact-section'

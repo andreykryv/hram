@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -10,37 +10,37 @@ import { cn } from '@/lib/utils'
 
 const navigation = [
   { name: 'Главная', href: '/' },
-  { 
-    name: 'О храме', 
+  {
+    name: 'О храме',
     href: '/about',
     children: [
       { name: 'История храма', href: '/about/history' },
       { name: 'Духовенство', href: '/about/clergy' },
       { name: 'Приходская жизнь', href: '/about/parish-life' },
-    ]
+    ],
   },
   { name: 'Расписание', href: '/schedule' },
-  { 
-    name: 'Для новоначальных', 
+  {
+    name: 'Для новоначальных',
     href: '/beginners',
     children: [
       { name: 'Первые шаги в храме', href: '/beginners/first-steps' },
       { name: 'Основы веры', href: '/beginners/basics' },
       { name: 'Как исповедоваться', href: '/beginners/confession-guide' },
       { name: 'Подготовка к причастию', href: '/beginners/communion-guide' },
-    ]
+    ],
   },
-  { 
-    name: 'Требы', 
+  {
+    name: 'Требы',
     href: '/services',
     children: [
       { name: 'Крещение', href: '/services/baptism' },
       { name: 'Венчание', href: '/services/wedding' },
       { name: 'Освящение', href: '/services/blessing' },
       { name: 'Отпевание', href: '/services/funeral' },
-    ]
+    ],
   },
-    { name: 'Музей', href: '/museum' },
+  { name: 'Музей', href: '/museum' },
   { name: 'Новости', href: '/news' },
   { name: 'Галерея', href: '/gallery' },
   { name: 'Контакты', href: '/contact' },
@@ -51,39 +51,78 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const pathname = usePathname()
+  const scrollYRef = useRef(0)
 
+  // Handle scroll detection
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock body scroll when mobile menu is open (iOS-safe technique)
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      scrollYRef.current = window.scrollY
+      document.documentElement.style.setProperty(
+        '--scroll-y',
+        `-${scrollYRef.current}px`,
+      )
+      document.body.classList.add('menu-open')
+    } else {
+      document.body.classList.remove('menu-open')
+      document.documentElement.style.removeProperty('--scroll-y')
+      window.scrollTo(0, scrollYRef.current)
+    }
+
+    return () => {
+      document.body.classList.remove('menu-open')
+      document.documentElement.style.removeProperty('--scroll-y')
+    }
+  }, [isMobileMenuOpen])
+
+  // Close on route change
   useEffect(() => {
     setIsMobileMenuOpen(false)
     setOpenDropdown(null)
   }, [pathname])
 
+  // Close on Escape key
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+        setOpenDropdown(null)
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
   return (
     <>
-      {/* Top bar with contact info */}
+      {/* Top bar — desktop only */}
       <div className="bg-primary text-primary-foreground py-2 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:+375291220196" className="flex items-center gap-2 hover:text-secondary transition-colors">
-              <Phone className="h-4 w-4" />
+            <a
+              href="tel:+375291220196"
+              className="flex items-center gap-2 hover:text-secondary transition-colors"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
               <span>+375 (29) 122-01-96</span>
             </a>
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4" />
+              <Clock className="h-4 w-4" aria-hidden="true" />
               <span>Ежедневно: 8:00 - 20:00</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <a 
-              href="https://instagram.com/kvhram" 
-              target="_blank" 
+            <a
+              href="https://instagram.com/kvhram"
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-secondary transition-colors"
             >
@@ -94,36 +133,43 @@ export function Header() {
       </div>
 
       {/* Main header */}
-      <header 
+      <header
         className={cn(
           'sticky top-0 z-50 transition-all duration-300',
-          isScrolled 
-            ? 'bg-background/95 backdrop-blur-md shadow-md' 
-            : 'bg-background'
+          isScrolled
+            ? 'bg-background/95 backdrop-blur-md shadow-md'
+            : 'bg-background',
         )}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center group-hover:bg-secondary transition-colors">
-                <CrossIcon className="w-6 h-6 text-primary-foreground" />
+            <Link
+              href="/"
+              className="flex items-center gap-3 group min-h-0 min-w-0"
+              aria-label="Храм Воздвижения Креста Господня — на главную"
+            >
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary flex items-center justify-center group-hover:bg-secondary transition-colors flex-shrink-0">
+                <CrossIcon className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="font-serif text-lg font-bold text-foreground leading-tight">
+              <div className="hidden sm:block min-w-0">
+                <h1 className="font-serif text-base md:text-lg font-bold text-foreground leading-tight truncate">
                   Храм Воздвижения
                 </h1>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground truncate">
                   Креста Господня
                 </p>
               </div>
             </Link>
 
             {/* Desktop navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav
+              className="hidden lg:flex items-center gap-0.5 xl:gap-1"
+              aria-label="Основная навигация"
+            >
               {navigation.map((item) => (
-                <div 
-                  key={item.name} 
+                <div
+                  key={item.name}
                   className="relative"
                   onMouseEnter={() => item.children && setOpenDropdown(item.name)}
                   onMouseLeave={() => setOpenDropdown(null)}
@@ -131,36 +177,48 @@ export function Header() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'px-4 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center gap-1',
-                      pathname === item.href || pathname.startsWith(item.href + '/')
+                      'px-2.5 xl:px-4 py-2 rounded-md text-xs xl:text-sm font-medium transition-colors inline-flex items-center gap-1 whitespace-nowrap',
+                      pathname === item.href ||
+                        pathname.startsWith(item.href + '/')
                         ? 'text-primary bg-primary/10'
-                        : 'text-foreground hover:text-primary hover:bg-primary/5'
+                        : 'text-foreground hover:text-primary hover:bg-primary/5',
                     )}
                   >
                     {item.name}
-                    {item.children && <ChevronDown className="h-4 w-4" />}
+                    {item.children && (
+                      <ChevronDown
+                        className={cn(
+                          'h-3.5 w-3.5 transition-transform',
+                          openDropdown === item.name ? 'rotate-180' : '',
+                        )}
+                        aria-hidden="true"
+                      />
+                    )}
                   </Link>
-                  
+
                   {/* Dropdown */}
                   {item.children && (
                     <AnimatePresence>
                       {openDropdown === item.name && (
                         <motion.div
-                          initial={{ opacity: 0, y: 10 }}
+                          initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-48 bg-card rounded-lg shadow-lg border border-border overflow-hidden"
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-full left-0 mt-1 w-52 bg-card rounded-lg shadow-xl border border-border overflow-hidden z-50"
+                          role="menu"
+                          aria-label={`Раздел «${item.name}»`}
                         >
                           {item.children.map((child) => (
                             <Link
                               key={child.name}
                               href={child.href}
+                              role="menuitem"
                               className={cn(
                                 'block px-4 py-3 text-sm transition-colors',
                                 pathname === child.href
                                   ? 'text-primary bg-primary/10'
-                                  : 'text-foreground hover:text-primary hover:bg-muted'
+                                  : 'text-foreground hover:text-primary hover:bg-muted',
                               )}
                             >
                               {child.name}
@@ -174,61 +232,80 @@ export function Header() {
               ))}
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden lg:block">
-              <Button asChild className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
+            {/* CTA — desktop */}
+            <div className="hidden lg:block flex-shrink-0">
+              <Button
+                asChild
+                size="sm"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+              >
                 <Link href="/schedule">Расписание служб</Link>
               </Button>
             </div>
 
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-md text-foreground hover:bg-muted transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* ── Mobile overlay menu ─────────────────────────────── */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
+              id="mobile-menu"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
               className="lg:hidden border-t border-border bg-background overflow-hidden"
+              role="navigation"
+              aria-label="Мобильная навигация"
             >
-              <nav className="container mx-auto px-4 py-4 space-y-1">
+              {/* Scrollable area so nav fits on small screens */}
+              <nav
+                className="container mx-auto px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto"
+                style={{ WebkitOverflowScrolling: 'touch' }}
+              >
                 {navigation.map((item) => (
-                  <div key={item.name}>
+                  <div key={item.name} className="mb-0.5">
                     <Link
                       href={item.href}
                       className={cn(
-                        'block px-4 py-3 rounded-md text-base font-medium transition-colors',
-                        pathname === item.href || pathname.startsWith(item.href + '/')
+                        'flex items-center px-4 py-3 rounded-md text-base font-medium transition-colors',
+                        pathname === item.href ||
+                          pathname.startsWith(item.href + '/')
                           ? 'text-primary bg-primary/10'
-                          : 'text-foreground hover:text-primary hover:bg-primary/5'
+                          : 'text-foreground hover:text-primary hover:bg-primary/5',
                       )}
                     >
                       {item.name}
                     </Link>
+
+                    {/* Child links */}
                     {item.children && (
-                      <div className="pl-4 mt-1 space-y-1">
+                      <div className="pl-4 mb-1 space-y-0.5">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}
                             href={child.href}
                             className={cn(
-                              'block px-4 py-2 rounded-md text-sm transition-colors',
+                              'block px-4 py-2.5 rounded-md text-sm transition-colors',
                               pathname === child.href
                                 ? 'text-primary bg-primary/10'
-                                : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                                : 'text-muted-foreground hover:text-primary hover:bg-primary/5',
                             )}
                           >
                             {child.name}
@@ -238,16 +315,24 @@ export function Header() {
                     )}
                   </div>
                 ))}
-                
-                {/* Mobile contact info */}
-                <div className="pt-4 mt-4 border-t border-border">
-                  <a 
-                    href="tel:+375291220196" 
-                    className="flex items-center gap-2 px-4 py-2 text-primary"
+
+                {/* Mobile contact + CTA */}
+                <div className="pt-3 mt-2 border-t border-border space-y-2 pb-safe-bottom">
+                  <a
+                    href="tel:+375291220196"
+                    className="flex items-center gap-3 px-4 py-3 text-primary font-medium"
                   >
-                    <Phone className="h-4 w-4" />
+                    <Phone className="h-4 w-4" aria-hidden="true" />
                     <span>+375 (29) 122-01-96</span>
                   </a>
+                  <div className="px-4 pb-2">
+                    <Button
+                      asChild
+                      className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                    >
+                      <Link href="/schedule">Расписание богослужений</Link>
+                    </Button>
+                  </div>
                 </div>
               </nav>
             </motion.div>
@@ -260,9 +345,9 @@ export function Header() {
 
 function CrossIcon({ className }: { className?: string }) {
   return (
-    <svg 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
       className={className}
       aria-hidden="true"
     >

@@ -40,6 +40,7 @@ const navigation = [
       { name: 'Отпевание', href: '/services/funeral' },
     ]
   },
+    { name: 'Музей', href: '/museum' },
   { name: 'Новости', href: '/news' },
   { name: 'Галерея', href: '/gallery' },
   { name: 'Контакты', href: '/contact' },

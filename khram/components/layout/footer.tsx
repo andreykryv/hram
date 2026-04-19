@@ -6,6 +6,7 @@ const quickLinks = [
   { name: 'История', href: '/about/history' },
   { name: 'Духовенство', href: '/about/clergy' },
   { name: 'Расписание', href: '/schedule' },
+    { name: 'Музей', href: '/museum' },
   { name: 'Новости', href: '/news' },
   { name: 'Контакты', href: '/contact' },
 ]

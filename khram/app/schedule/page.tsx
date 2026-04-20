@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { Calendar, Clock, Bell, ChevronRight, Star } from 'lucide-react'
 import { PageWrapper } from '@/components/layout'
 import { Card, CardContent } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export const metadata: Metadata = {
   title: 'Расписание богослужений',
@@ -145,133 +144,128 @@ export default function SchedulePage() {
               Расписание богослужений
             </h1>
             <p className="text-lg text-primary-foreground/90 leading-relaxed">
-              Регулярное расписание богослужений в нашем храме. 
+              Регулярное расписание богослужений в нашем храме.
               В дни великих праздников расписание может изменяться.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Weekly schedule */}
-      <section className="py-16 md:py-24">
+      {/* Timetable section with new design */}
+      <section className="timetable py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <Tabs defaultValue="weekly" className="w-full">
-            <div className="flex justify-center mb-8">
-              <TabsList className="grid grid-cols-3 w-full max-w-md">
-                <TabsTrigger value="weekly">Неделя</TabsTrigger>
-                <TabsTrigger value="holidays">Праздники</TabsTrigger>
-                <TabsTrigger value="sacraments">Таинства</TabsTrigger>
-              </TabsList>
-            </div>
+          <h2 className="timetable__title font-serif text-3xl font-bold text-foreground mb-8">
+            Еженедельное расписание
+          </h2>
 
-            <TabsContent value="weekly">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="timetable__slider-wrap">
+            <div className="timetable__slider">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {weeklySchedule.map((day) => (
-                  <Card 
-                    key={day.day} 
-                    className={`${day.isHighlight ? 'border-secondary bg-secondary/5 md:col-span-2 lg:col-span-1' : ''} ${day.isSpecial ? 'border-primary/50' : ''}`}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className={`font-serif text-xl font-bold ${day.isHighlight ? 'text-secondary-foreground' : 'text-foreground'}`}>
-                          {day.day}
-                        </h3>
-                        {day.isHighlight && (
-                          <Star className="w-5 h-5 text-secondary" fill="currentColor" />
-                        )}
+                  <div key={day.day} className="timetable__item">
+                    <div className="timetable__item-inner">
+                      <div className={`timetable__date ${day.isHighlight ? 'timetable__date-today' : ''}`}>
+                        <span className="date-num">{day.dayShort}</span>
+                        <span>{day.day}</span>
                       </div>
-                      <ul className="space-y-3">
-                        {day.services.map((service, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <span className="flex items-center gap-1 text-sm text-primary font-medium min-w-[55px]">
-                              <Clock className="w-3 h-3" />
-                              {service.time}
-                            </span>
-                            <div>
-                              <span className="text-sm text-foreground">{service.name}</span>
+
+                      <div className="timetable__desc">
+                        <ul className="timetable__list">
+                          {day.services.map((service, index) => (
+                            <li key={index}>
+                              <div className="timetable__time">
+                                <span>{service.time}</span>
+                              </div>
+                              <div className="timetable__name">{service.name}</div>
                               {service.note && (
-                                <p className="text-xs text-muted-foreground mt-0.5">{service.note}</p>
+                                <div className="text-xs text-muted-foreground mt-1">{service.note}</div>
                               )}
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
-            </TabsContent>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <TabsContent value="holidays">
-              <div className="max-w-3xl mx-auto">
-                <div className="text-center mb-8">
-                  <h2 className="font-serif text-2xl font-bold text-foreground mb-2">
-                    Ближайшие праздники
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Праздничные богослужения в ближайшие месяцы
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  {upcomingHolidays.map((holiday) => (
-                    <Card key={holiday.name}>
-                      <CardContent className="p-6">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                          <div className="sm:w-32 shrink-0">
-                            <span className="inline-block px-3 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-sm font-medium">
-                              {holiday.date}
-                            </span>
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-serif font-bold text-foreground mb-2">
-                              {holiday.name}
-                            </h3>
-                            <ul className="space-y-1">
-                              {holiday.services.map((service, index) => (
-                                <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
-                                  <ChevronRight className="w-3 h-3 text-primary" />
-                                  {service}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
+      {/* Holidays section */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="font-serif text-2xl font-bold text-foreground mb-2">
+                Ближайшие праздники
+              </h2>
+              <p className="text-muted-foreground">
+                Праздничные богослужения в ближайшие месяцы
+              </p>
+            </div>
+            <div className="space-y-4">
+              {upcomingHolidays.map((holiday) => (
+                <Card key={holiday.name}>
+                  <CardContent className="p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="sm:w-32 shrink-0">
+                        <span className="inline-block px-3 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-sm font-medium">
+                          {holiday.date}
+                        </span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-serif font-bold text-foreground mb-2">
+                          {holiday.name}
+                        </h3>
+                        <ul className="space-y-1">
+                          {holiday.services.map((service, index) => (
+                            <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
+                              <ChevronRight className="w-3 h-3 text-primary" />
+                              {service}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <TabsContent value="sacraments">
-              <div className="max-w-3xl mx-auto">
-                <div className="text-center mb-8">
-                  <h2 className="font-serif text-2xl font-bold text-foreground mb-2">
-                    Расписание таинств
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Когда и как можно приступить к церковным таинствам
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  {sacramentSchedule.map((sacrament) => (
-                    <Card key={sacrament.name}>
-                      <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center gap-4">
-                        <div className="sm:w-40 shrink-0">
-                          <h3 className="font-serif font-bold text-foreground">
-                            {sacrament.name}
-                          </h3>
-                        </div>
-                        <div className="flex-1 text-muted-foreground">
-                          {sacrament.schedule}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+      {/* Sacraments section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="font-serif text-2xl font-bold text-foreground mb-2">
+                Расписание таинств
+              </h2>
+              <p className="text-muted-foreground">
+                Когда и как можно приступить к церковным таинствам
+              </p>
+            </div>
+            <div className="space-y-4">
+              {sacramentSchedule.map((sacrament) => (
+                <Card key={sacrament.name}>
+                  <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="sm:w-40 shrink-0">
+                      <h3 className="font-serif font-bold text-foreground">
+                        {sacrament.name}
+                      </h3>
+                    </div>
+                    <div className="flex-1 text-muted-foreground">
+                      {sacrament.schedule}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

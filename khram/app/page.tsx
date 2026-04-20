@@ -12,9 +12,11 @@ export default function HomePage() {
   return (
     <PageWrapper>
       <HeroSection />
+       <ScheduleSection />
+       <AboutSection />
+     
       <AnnouncementsSection />
-      <AboutSection />
-      <ScheduleSection />
+     
       <SacramentsSection />
       <ContactSection />
     </PageWrapper>

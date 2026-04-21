@@ -85,33 +85,33 @@ export default function ClergyPage() {
                 <CardContent className="p-0">
                   <div className={`grid grid-cols-1 lg:grid-cols-3 gap-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                     {/* Image */}
-                    <div className={`relative aspect-square lg:aspect-auto ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <div className={`relative h-[400px] lg:h-auto lg:aspect-[3/4] ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                       <Image
                         src={priest.image}
                         alt={priest.name}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                       />
                     </div>
 
                     {/* Content */}
                     <div className={`lg:col-span-2 p-8 md:p-12 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <span className="inline-block px-3 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-sm font-medium mb-4">
+                      <span className="inline-block px-3 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-base font-medium mb-4">
                         {priest.title}
                       </span>
-                      <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4">
+                      <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
                         {priest.name}
                       </h2>
-                      <p className="text-muted-foreground leading-relaxed mb-6">
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                         {priest.bio}
                       </p>
 
                       <div className="mb-6">
-                        <h3 className="font-semibold text-foreground mb-3">Обязанности:</h3>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <h3 className="font-semibold text-foreground text-xl mb-3">Обязанности:</h3>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {priest.duties.map((duty) => (
-                            <li key={duty} className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            <li key={duty} className="flex items-center gap-2 text-base text-muted-foreground">
+                              <div className="w-2 h-2 rounded-full bg-primary" />
                               {duty}
                             </li>
                           ))}

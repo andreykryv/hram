@@ -127,11 +127,23 @@ export function ScheduleSlider() {
   const go = (idx: number) => setCurrent(Math.max(0, Math.min(idx, max)))
 
   return (
-    <div className="w-full">
+    <div className="w-full relative flex items-center">
+      {/* Left Navigation Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="flex-shrink-0 z-10 w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-30 disabled:pointer-events-none shadow-md mr-2 sm:mr-4"
+        disabled={current === 0}
+        onClick={() => go(current - 1)}
+        aria-label="Предыдущий"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </Button>
+
       {/* Track */}
       <div
         ref={trackRef}
-        className="flex overflow-x-hidden scroll-smooth"
+        className="flex overflow-x-hidden scroll-smooth flex-1"
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {schedule.map((day, i) => {
@@ -206,44 +218,17 @@ export function ScheduleSlider() {
         })}
       </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-center gap-2 mt-6">
-        <Button
-          variant="default"
-          size="icon"
-          className="w-9 h-9 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-30"
-          disabled={current === 0}
-          onClick={() => go(current - 1)}
-          aria-label="Предыдущий"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </Button>
-
-        <div className="flex items-center gap-1.5 mx-2">
-          {Array.from({ length: max + 1 }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Перейти к ${i + 1}`}
-              className={cn(
-                'w-2 h-2 rounded-full transition-colors',
-                i === current ? 'bg-primary' : 'bg-border hover:bg-muted-foreground',
-              )}
-            />
-          ))}
-        </div>
-
-        <Button
-          variant="default"
-          size="icon"
-          className="w-9 h-9 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-30"
-          disabled={current >= max}
-          onClick={() => go(current + 1)}
-          aria-label="Следующий"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </Button>
-      </div>
+      {/* Right Navigation Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="flex-shrink-0 z-10 w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-30 disabled:pointer-events-none shadow-md ml-2 sm:ml-4"
+        disabled={current >= max}
+        onClick={() => go(current + 1)}
+        aria-label="Следующий"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </Button>
     </div>
   )
 }

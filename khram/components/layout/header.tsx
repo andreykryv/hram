@@ -50,6 +50,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [mobileOpenSections, setMobileOpenSections] = useState<Set<string>>(new Set())
   const pathname = usePathname()
   const scrollYRef = useRef(0)
 
@@ -87,6 +88,7 @@ export function Header() {
   useEffect(() => {
     setIsMobileMenuOpen(false)
     setOpenDropdown(null)
+    setMobileOpenSections(new Set())
   }, [pathname])
 
   // Close on Escape key
@@ -95,11 +97,24 @@ export function Header() {
       if (e.key === 'Escape') {
         setIsMobileMenuOpen(false)
         setOpenDropdown(null)
+        setMobileOpenSections(new Set())
       }
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [])
+
+  const toggleMobileSection = (name: string) => {
+    setMobileOpenSections((prev) => {
+      const next = new Set(prev)
+      if (next.has(name)) {
+        next.delete(name)
+      } else {
+        next.add(name)
+      }
+      return next
+    })
+  }
 
   return (
     <>
@@ -281,37 +296,66 @@ export function Header() {
               >
                 {navigation.map((item) => (
                   <div key={item.name} className="mb-0.5">
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'flex items-center px-4 py-3 rounded-md text-base font-medium transition-colors',
-                        pathname === item.href ||
-                          pathname.startsWith(item.href + '/')
-                          ? 'text-primary bg-primary/10'
-                          : 'text-foreground hover:text-primary hover:bg-primary/5',
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-
-                    {/* Child links */}
-                    {item.children && (
-                      <div className="pl-4 mb-1 space-y-0.5">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.name}
-                            href={child.href}
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          'flex-1 flex items-center px-4 py-3 rounded-md text-base font-medium transition-colors',
+                          pathname === item.href ||
+                            pathname.startsWith(item.href + '/')
+                            ? 'text-primary bg-primary/10'
+                            : 'text-foreground hover:text-primary hover:bg-primary/5',
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                      {item.children && (
+                        <button
+                          onClick={() => toggleMobileSection(item.name)}
+                          className="p-3 text-foreground hover:bg-muted rounded-md transition-colors"
+                          aria-label={mobileOpenSections.has(item.name) ? 'Свернуть подразделы' : 'Развернуть подразделы'}
+                        >
+                          <ChevronDown
                             className={cn(
-                              'block px-4 py-2.5 rounded-md text-sm transition-colors',
-                              pathname === child.href
-                                ? 'text-primary bg-primary/10'
-                                : 'text-muted-foreground hover:text-primary hover:bg-primary/5',
+                              'h-4 w-4 transition-transform',
+                              mobileOpenSections.has(item.name) ? 'rotate-180' : '',
                             )}
+                            aria-hidden="true"
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Child links - collapsible */}
+                    {item.children && (
+                      <AnimatePresence>
+                        {mobileOpenSections.has(item.name) && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
                           >
-                            {child.name}
-                          </Link>
-                        ))}
-                      </div>
+                            <div className="pl-4 mb-1 space-y-0.5">
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.name}
+                                  href={child.href}
+                                  className={cn(
+                                    'block px-4 py-2.5 rounded-md text-sm transition-colors',
+                                    pathname === child.href
+                                      ? 'text-primary bg-primary/10'
+                                      : 'text-muted-foreground hover:text-primary hover:bg-primary/5',
+                                  )}
+                                >
+                                  {child.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     )}
                   </div>
                 ))}

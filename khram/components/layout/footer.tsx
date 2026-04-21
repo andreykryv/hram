@@ -125,7 +125,7 @@ export function Footer() {
                 <Clock className="w-4 h-4 mt-0.5 shrink-0" />
                 <div>
                   <p>Ежедневно: 8:00 - 20:00</p>
-                  <p className="text-xs mt-1">Богослужения по расписанию</p>
+                  <p className="text-xs mt-1">Богослужения по расписаheaderнию</p>
                 </div>
               </li>
             </ul>

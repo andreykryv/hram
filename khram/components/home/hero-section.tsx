@@ -37,9 +37,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary rounded-full text-sm font-medium mb-5">
-              Минская епархия БПЦ
-            </span>
+            
           </motion.div>
 
           <motion.h1
@@ -119,20 +117,39 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator — hidden on touch devices to save space */}
+      {/* Scroll indicator arrow pointing to schedule */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block"
-        aria-hidden="true"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex justify-center pt-2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-2"
         >
-          <div className="w-1.5 h-3 bg-primary-foreground/50 rounded-full" />
+          <span className="text-xs font-medium text-white/90 uppercase tracking-wider bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full">
+            Расписание
+          </span>
+          <div className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-primary"
+            >
+              <path
+                d="M12 5V19M12 19L5 12M12 19L19 12"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </motion.div>
       </motion.div>
     </section>

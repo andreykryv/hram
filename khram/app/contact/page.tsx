@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Send, Instagram, ExternalLink } from 'lucide-react'
+import { PageWrapper } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -59,7 +60,7 @@ export default function ContactPage() {
   ]
 
   return (
-    <main className="min-h-screen">
+    <PageWrapper>
       {/* Hero */}
       <section className="relative py-20 bg-primary text-primary-foreground">
         <div className="absolute inset-0 orthodox-pattern opacity-30" />
@@ -291,6 +292,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </PageWrapper>
   )
 }

@@ -80,10 +80,7 @@ export default function SchedulePage() {
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary-foreground mb-6 text-balance">
               Расписание богослужений
             </h1>
-            <p className="text-lg text-primary-foreground/90 leading-relaxed">
-              Регулярное расписание богослужений в нашем храме.
-              В дни великих праздников расписание может изменяться.
-            </p>
+          
           </div>
         </div>
       </section>

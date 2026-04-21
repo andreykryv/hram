@@ -24,10 +24,7 @@ export function ScheduleSection() {
           <h2 className="timetable__title font-serif text-3xl font-bold text-foreground mb-2">
             Расписание богослужений
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Регулярное расписание богослужений в нашем храме.
-            В дни праздников расписание может меняться.
-          </p>
+         
         </motion.div>
 
         <ScheduleSlider />

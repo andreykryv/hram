@@ -79,8 +79,7 @@ export function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
-            >
+              className="border-primary-foreground/30 text-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"            >
               <Link href="/about">
                 О храме
                 <ChevronRight className="w-5 h-5 ml-2" aria-hidden="true" />

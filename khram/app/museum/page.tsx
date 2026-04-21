@@ -1,14 +1,14 @@
-import { Metadata } from 'next'
+'use client'
+
+
 import Image from 'next/image'
 import Link from 'next/link'
-import { Calendar, Phone, Clock, MapPin } from 'lucide-react'
+import { Calendar, Phone, Clock, MapPin, X } from 'lucide-react'
 import { PageWrapper } from '@/components/layout'
 import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Музей Шталаг-352',
-  description: 'Музей подвига советских военнопленных – узников лагеря Шталаг-352 при храме Воздвижения Креста Господня в Минске.',
-}
+
 
 const galleryImages = [
   {
@@ -34,6 +34,8 @@ const galleryImages = [
 ]
 
 export default function MuseumPage() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
   return (
     <PageWrapper>
       {/* Hero */}
@@ -144,7 +146,11 @@ export default function MuseumPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {galleryImages.map((image) => (
-              <div key={image.src} className="group relative aspect-square rounded-xl overflow-hidden shadow-md">
+              <div
+                key={image.src}
+                className="group relative aspect-square rounded-xl overflow-hidden shadow-md cursor-pointer"
+                onClick={() => setSelectedImage(image.src)}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -216,6 +222,30 @@ export default function MuseumPage() {
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+            onClick={() => setSelectedImage(null)}
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <div className="relative w-full h-full max-w-7xl max-h-[90vh] p-4">
+            <Image
+              src={selectedImage}
+              alt="Просмотр экспоната"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      )}
     </PageWrapper>
   )
 }

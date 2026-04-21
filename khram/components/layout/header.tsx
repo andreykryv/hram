@@ -8,6 +8,9 @@ import { Menu, X, Phone, Clock, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
+const PHONE_NUMBER = '+375 (29) 122-01-96'
+const PHONE_LINK = '+375291220196'
+
 const navigation = [
   { name: 'Главная', href: '/' },
   {
@@ -49,6 +52,7 @@ const navigation = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [showMobilePhone, setShowMobilePhone] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [mobileOpenSections, setMobileOpenSections] = useState<Set<string>>(new Set())
   const pathname = usePathname()
@@ -89,6 +93,7 @@ export function Header() {
     setIsMobileMenuOpen(false)
     setOpenDropdown(null)
     setMobileOpenSections(new Set())
+    setShowMobilePhone(false)
   }, [pathname])
 
   // Close on Escape key
@@ -98,6 +103,7 @@ export function Header() {
         setIsMobileMenuOpen(false)
         setOpenDropdown(null)
         setMobileOpenSections(new Set())
+        setShowMobilePhone(false)
       }
     }
     document.addEventListener('keydown', onKey)
@@ -123,11 +129,11 @@ export function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <a
-              href="tel:+375291220196"
+              href={`tel:${PHONE_LINK}`}
               className="flex items-center gap-2 hover:text-secondary transition-colors"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
-              <span>+375 (29) 122-01-96</span>
+              <span>{PHONE_NUMBER}</span>
             </a>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4" aria-hidden="true" />
@@ -258,23 +264,57 @@ export function Header() {
               </Button>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              type="button"
-              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-md text-foreground hover:bg-muted transition-colors"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
+            {/* Mobile actions: phone + hamburger */}
+            <div className="lg:hidden flex items-center gap-2">
+              <button
+                type="button"
+                className="flex items-center justify-center w-11 h-11 rounded-md text-primary hover:bg-muted transition-colors"
+                onClick={() => setShowMobilePhone(!showMobilePhone)}
+                aria-label={showMobilePhone ? 'Скрыть номер телефона' : 'Показать номер телефона'}
+                aria-expanded={showMobilePhone}
+              >
+                <Phone className="h-6 w-6" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="flex items-center justify-center w-11 h-11 rounded-md text-foreground hover:bg-muted transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-6 w-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile phone display */}
+        <AnimatePresence>
+          {showMobilePhone && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden border-t border-border bg-background overflow-hidden"
+            >
+              <div className="container mx-auto px-4 py-3">
+                <a
+                  href={`tel:${PHONE_LINK}`}
+                  className="flex items-center gap-3 px-4 py-3 text-primary font-medium text-lg"
+                >
+                  <Phone className="h-5 w-5" aria-hidden="true" />
+                  <span>{PHONE_NUMBER}</span>
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── Mobile overlay menu ─────────────────────────────── */}
         <AnimatePresence>
@@ -363,11 +403,11 @@ export function Header() {
                 {/* Mobile contact + CTA */}
                 <div className="pt-3 mt-2 border-t border-border space-y-2 pb-safe-bottom">
                   <a
-                    href="tel:+375291220196"
+                    href={`tel:${PHONE_LINK}`}
                     className="flex items-center gap-3 px-4 py-3 text-primary font-medium"
                   >
                     <Phone className="h-4 w-4" aria-hidden="true" />
-                    <span>+375 (29) 122-01-96</span>
+                    <span>{PHONE_NUMBER}</span>
                   </a>
                   <div className="px-4 pb-2">
                     <Button

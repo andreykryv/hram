@@ -44,8 +44,9 @@ const navigation = [
     ],
   },
   { name: 'Музей', href: '/museum' },
-  { name: 'Новости', href: '/news' },
   { name: 'Галерея', href: '/gallery' },
+  { name: 'Воскресная школа', href: '/sunday-school' },
+  { name: 'Новости', href: '/news' },
   { name: 'Контакты', href: '/contact' },
 ]
 

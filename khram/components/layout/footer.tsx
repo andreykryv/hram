@@ -6,7 +6,9 @@ const quickLinks = [
   { name: 'История', href: '/about/history' },
   { name: 'Духовенство', href: '/about/clergy' },
   { name: 'Расписание', href: '/schedule' },
-    { name: 'Музей', href: '/museum' },
+  { name: 'Музей', href: '/museum' },
+  { name: 'Галерея', href: '/gallery' },
+  { name: 'Воскресная школа', href: '/sunday-school' },
   { name: 'Новости', href: '/news' },
   { name: 'Контакты', href: '/contact' },
 ]
@@ -38,11 +40,11 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-primary-foreground/80 mb-4 leading-relaxed">
-              Приход храма Воздвижения Креста Господня в городе Минске. 
+              Приход храма Воздвижения Креста Господня в городе Минске.
               Добро пожаловать в наш храм!
             </p>
             <div className="flex items-center gap-3">
-              <a 
+              <a
                 href="https://instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA=="
                 target="_blank"
                 rel="noopener noreferrer"
@@ -60,7 +62,7 @@ export function Footer() {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={link.href}
                     className="text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
                   >
@@ -77,7 +79,7 @@ export function Footer() {
             <ul className="space-y-2">
               {sacraments.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={link.href}
                     className="text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
                   >
@@ -93,7 +95,7 @@ export function Footer() {
             <h4 className="font-serif font-bold mb-4 text-lg">Контакты</h4>
             <ul className="space-y-3">
               <li>
-                <a 
+                <a
                   href="https://yandex.ru/maps/-/CHQmrY1b"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -104,7 +106,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="tel:+375291220196"
                   className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
                 >
@@ -113,7 +115,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="mailto:kvhram@mail.by"
                   className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-secondary transition-colors"
                 >
@@ -148,9 +150,9 @@ export function Footer() {
 
 function CrossIcon({ className }: { className?: string }) {
   return (
-    <svg 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
       className={className}
       aria-hidden="true"
     >

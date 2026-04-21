@@ -142,7 +142,7 @@ export function Header() {
           </div>
           <div className="flex items-center gap-4">
             <a
-              href="https://instagram.com/kvhram"
+              href="https://instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA=="
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-secondary transition-colors"

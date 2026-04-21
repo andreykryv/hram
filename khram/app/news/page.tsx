@@ -179,7 +179,7 @@ export default function NewsPage() {
             </p>
             <Button asChild>
               <a 
-                href="https://instagram.com/kvhram" 
+                href="https://instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA==" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >

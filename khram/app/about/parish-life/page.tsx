@@ -92,7 +92,7 @@ export default function ParishLifePage() {
               Приходская жизнь
             </h1>
             <p className="text-lg text-primary-foreground/90 leading-relaxed">
-              Наш приход — это живая община верующих людей. 
+              Наш приход — это живая община верующих людей.
               Присоединяйтесь к нашим занятиям, группам и добрым делам.
             </p>
           </div>
@@ -146,8 +146,66 @@ export default function ParishLifePage() {
         </div>
       </section>
 
+      {/* Instagram Widget */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Мы в Instagram
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+              Следите за новостями, фотоотчетами о событиях и анонсами богослужений в нашем профиле
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            {/* Сетка постов - визуальная имитация ленты */}
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              {[1, 2, 3, 4, 5, 6].map((item) => (
+                <a
+                  key={item}
+                  href="https://www.instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="aspect-square bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg overflow-hidden relative group hover:shadow-lg transition-all duration-300 border border-gray-100 block"
+                >
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg className="w-16 h-16 text-gray-200 group-hover:text-pink-300 group-hover:scale-110 transition-all duration-300" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6">
+                    <span className="text-white font-medium flex items-center gap-2 text-sm">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                      Открыть пост
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <a
+                href="https://www.instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Перейти в профиль @kvhram_minsk
+              </a>
+              <p className="mt-4 text-sm text-gray-500">
+                Нажмите на кнопку выше, чтобы увидеть все публикации в Instagram
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Events */}
-      <section className="py-16 md:py-24 bg-muted/50">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -187,18 +245,15 @@ export default function ParishLifePage() {
                 Присоединяйтесь к нам
               </h2>
               <p className="text-primary-foreground/90 leading-relaxed mb-8">
-                Мы рады всем, кто хочет стать частью нашей приходской семьи. 
-                Приходите на богослужения, записывайтесь в воскресную школу, 
+                Мы рады всем, кто хочет стать частью нашей приходской семьи.
+                Приходите на богослужения, записывайтесь в воскресную школу,
                 присоединяйтесь к хору или волонтёрским проектам.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-                  <Link href="/contact">Связаться с нами</Link>
-                </Button>
-                <Button asChild variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                  <Link href="/schedule">Расписание богослужений</Link>
-                </Button>
-              </div>
+              <Button asChild variant="secondary" size="lg">
+                <Link href="/contact">
+                  Связаться с нами
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

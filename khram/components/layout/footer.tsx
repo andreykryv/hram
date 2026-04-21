@@ -43,7 +43,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a 
-                href="https://instagram.com/kvhram"
+                href="https://instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-colors"

@@ -276,7 +276,7 @@ export default function ContactPage() {
               <div className="mt-8 p-6 bg-muted rounded-xl">
                 <h3 className="font-serif font-bold mb-4">Мы в социальных сетях</h3>
                 <a
-                  href="https://instagram.com/kvhram"
+                  href="https://instagram.com/kvhram_minsk?igshid=OGQ5ZDc2ODk2ZA=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-4 py-3 bg-card rounded-lg hover:shadow-md transition-all group"

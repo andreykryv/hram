@@ -74,15 +74,14 @@ export default function ServicesPage() {
     <PageWrapper>
       {/* Hero */}
       <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-primary/20">
           <Image
             src="/images/church-interior.jpg"
             alt="Церковные требы"
             fill
-            className="object-cover"
+            className="object-cover mix-blend-overlay"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl">

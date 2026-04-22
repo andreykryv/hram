@@ -78,15 +78,14 @@ export default function BlessingPage() {
     <PageWrapper>
       {/* Header */}
       <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-primary/20">
           <Image
             src="/images/church-interior.jpg"
             alt="Освящение"
             fill
-            className="object-cover"
+            className="object-cover mix-blend-overlay"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <Button asChild variant="ghost" className="mb-6 text-primary-foreground hover:bg-primary-foreground/10">

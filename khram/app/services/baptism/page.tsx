@@ -61,12 +61,12 @@ export default function BaptismPage() {
     <PageWrapper>
       {/* Header */}
       <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0 bg-primary/20">
+        <div className="absolute inset-0">
           <Image
             src="/images/church-interior.jpg"
             alt="Крещение"
             fill
-            className="object-cover mix-blend-overlay"
+            className="object-cover"
             priority
           />
         </div>

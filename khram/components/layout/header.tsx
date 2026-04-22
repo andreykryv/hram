@@ -168,14 +168,14 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-3 group min-h-0 min-w-0"
+                          className="flex items-center gap-2 md:gap-3 group min-h-0 min-w-0"
               aria-label="Храм Воздвижения Креста Господня — на главную"
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary flex items-center justify-center group-hover:bg-secondary transition-colors flex-shrink-0">
+             <div className="w-9 h-9 md:w-12 md:h-12 rounded-full bg-primary flex items-center justify-center group-hover:bg-secondary transition-colors flex-shrink-0">
                 <CrossIcon className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
               </div>
-              <div className="hidden sm:block min-w-0">
-                <h1 className="font-serif text-base md:text-lg font-bold text-foreground leading-tight truncate">
+          <div className="min-w-0">
+                <h1 className="font-serif text-sm md:text-lg font-bold text-foreground leading-tight truncate">
                   Храм Воздвижения
                 </h1>
                 <p className="text-xs md:text-sm text-muted-foreground truncate">

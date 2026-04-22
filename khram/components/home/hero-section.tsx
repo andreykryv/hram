@@ -9,10 +9,10 @@ import { Button } from '@/components/ui/button'
 export function HeroSection() {
   return (
     <section
-      className="relative flex items-center"
+      className="relative flex items-start"
       style={{
         // Use dvh so mobile browser chrome is accounted for; fall back to 90vh
-        minHeight: 'clamp(480px, 90dvh, 900px)',
+        minHeight: 'clamp(400px, 80dvh, 800px)',
       }}
     >
       {/* Background image */}
@@ -30,14 +30,14 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 py-16 md:py-24">
+      <div className="container mx-auto px-4 relative z-10 py-20 md:py-12">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            
+
           </motion.div>
 
           <motion.h1

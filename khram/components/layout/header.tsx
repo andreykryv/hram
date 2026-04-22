@@ -332,7 +332,7 @@ export function Header() {
             >
               {/* Scrollable area so nav fits on small screens */}
               <nav
-                className="container mx-auto px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto"
+                 className="container mx-auto px-4 py-2 max-h-[calc(100dvh-4rem)] overflow-y-auto"
                 style={{ WebkitOverflowScrolling: 'touch' }}
               >
                 {navigation.map((item) => (

@@ -135,7 +135,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 border-b border-border sticky top-20 bg-background z-30">
+        <section className="py-8 md:py-8 border-b border-border sticky top-[4rem] md:top-[5rem] bg-background z-30">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((category) => (

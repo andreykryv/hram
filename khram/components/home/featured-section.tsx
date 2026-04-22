@@ -1,10 +1,9 @@
-
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Camera, Landmark, BookOpen } from 'lucide-react'
+import { Camera, Landmark, BookOpen, ArrowRight } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 
 const featuredCards = [
@@ -85,6 +84,10 @@ export function FeaturedSection() {
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       {card.description}
                     </p>
+                    <div className="mt-4 flex items-center text-primary font-medium text-sm group-hover:translate-x-1 transition-transform">
+                      <span>Нажмите, чтобы узнать больше</span>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
                   </CardContent>
                 </Card>
               </Link>

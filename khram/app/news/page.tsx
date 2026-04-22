@@ -83,7 +83,7 @@ export default function NewsPage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
+          <div className="absolute inset-0 " />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl">
@@ -98,7 +98,7 @@ export default function NewsPage() {
       </section>
 
       {/* Categories */}
-      <section className="py-8 border-b border-border sticky top-20 bg-background/95 backdrop-blur-md z-40">
+      <section className="py-8 border-b border-border sticky top-16 bg-background/95 backdrop-blur-md z-40">
         <div className="container mx-auto px-4">
           <div className="flex gap-2 overflow-x-auto pb-2 -mb-2 scrollbar-hide">
             {categories.map((category) => (

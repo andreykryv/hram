@@ -78,7 +78,7 @@ export default function ParishLifePage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
+          <div className="absolute inset-0 " />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <Button asChild variant="ghost" className="text-primary-foreground/80 hover:text-primary-foreground mb-6">
@@ -121,7 +121,7 @@ export default function ParishLifePage() {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
+                  <div className="absolute inset-0 " />
                   <div className="absolute bottom-4 left-4">
                     <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
                       <activity.icon className="w-6 h-6 text-secondary-foreground" />
